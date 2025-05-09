@@ -26,7 +26,7 @@ export const teamMembers = [
   {
     id: 4,
     name: "Emily Davis",
-    role: "Healthcare Data Analyst",
+    role: "Speech Therapy Consultant",
     image: team4,
   },
 ];

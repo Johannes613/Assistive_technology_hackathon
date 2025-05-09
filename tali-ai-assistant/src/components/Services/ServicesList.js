@@ -10,60 +10,58 @@ import icon8 from "../../images/10016.png";
 export const services = [
   {
     id: 1,
-    title: "AI-Powered Content Generation",
+    title: "Real-Time Pronunciation Feedback",
     description:
-      "Generate high-quality, engaging content effortlessly with AI-driven assistance.",
+      "Analyze speech instantly using AI to identify mispronunciations clear suggestions for improvement.",
     icon: icon1,
   },
   {
     id: 2,
-    title: "Smart Writing Assistance",
+    title: "Personalized Speech Exercises",
     description:
-      "Improve writing clarity, grammar, and style with intelligent AI-powered suggestions.",
+      "Receive exercises tailored to your speech patterns, designed to support consistent and targeted improvement.",
     icon: icon2,
   },
   {
     id: 3,
-    title: "Idea Generation",
+    title: "Progress Tracking & Reports",
     description:
-      "Get AI-generated ideas, outlines, and creative topic suggestions for your content.",
+      "Track your improvement over time including visual progress dashboards and detailed performance reports.",
     icon: icon3,
   },
   {
     id: 4,
-    title: "SEO Optimization",
+    title: "Voice Recording Upload",
     description:
-      "Enhance discoverability with AI-based keyword suggestions and SEO optimization.",
+      "Upload audio files for flexible practice and receive AI-driven pronunciation analysis anytime, anywhere.",
     icon: icon4,
   },
   {
     id: 5,
-    title: "Paraphrasing",
+    title: "Accessibility First Design",
     description:
-      "Rephrase and refine content while maintaining originality, clarity, and accuracy.",
+      "Built for users of all abilities, with screen reader support, keyboard navigation, and friendly design.",
     icon: icon5,
   },
   {
     id: 6,
-    title: "AI-Powered Research",
+    title: "Multilingual Support",
     description:
-      "Access summarized insights, relevant data, and AI-driven content analysis easily.",
+      "Practice and receive feedback in multiple languages to support bilingual users and language learners.",
     icon: icon6,
   },
   {
     id: 7,
-    title: "Multi-Language",
+    title: "Therapist Mode",
     description:
-      "Create, translate, and optimize content in multiple languages with AI accuracy.",
+      "A special mode for speech therapists to create custom plans and monitor client progress through the platform.",
     icon: icon7,
   },
   {
     id: 8,
-    title: "24 / 7 Working",
+    title: "Available 24/7",
     description:
-      "Organize and structure content effectively with AI-assisted formatting tools.",
+      "Practice whenever you like — ClearSpeak AI is available anytime to support your speech journey.",
     icon: icon8,
   },
 ];
-
-

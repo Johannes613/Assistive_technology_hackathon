@@ -12,35 +12,34 @@ export default function About() {
             <img
               className="w-100 about-img"
               src={about_img}
-              alt="AI Assistant"
+              alt="AI Speech Therapy"
             />
           </div>
           <div className="right-section col-md-6 pt-4 text-center text-md-start">
             <h1 className="about-head my-2">
-              Empowering Your Creativity with AI-Driven Content Generation
+              Empowering Speech Improvement with AI
             </h1>
             <p className="mt-3 lh-lg">
-              Our AI-powered assistant helps you generate high-quality content effortlessly,  
-              making idea creation, structuring, and refinement smoother than ever.
+              ClearSpeak AI is designed to help individuals improve their pronunciation and speech fluency. Using AI-driven feedback, we provide personalized exercises and track your progress for a more effective learning journey.
             </p>
 
             <button className="watch-video read-more my-3">Learn More</button>
             <ul className="tick-list">
               <li>
                 <CiCircleCheck className="check-mark" />
-                Intelligent content suggestions
+                Real-time pronunciation feedback
               </li>
               <li>
                 <CiCircleCheck className="check-mark" />
-                AI-powered text enhancement
+                Personalized speech exercises
               </li>
               <li>
                 <CiCircleCheck className="check-mark" />
-                Adaptive learning for personalized results
+                Progress tracking and performance reports
               </li>
               <li>
                 <CiCircleCheck className="check-mark" />
-                Seamless integration with various platforms
+                Multilingual support for diverse users
               </li>
             </ul>
           </div>

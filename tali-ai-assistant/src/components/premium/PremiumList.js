@@ -1,7 +1,7 @@
-import icon1 from "../../images/10019.svg"
-import icon2 from "../../images/10020.png"
-import icon3 from "../../images/10021.png"
-import icon4 from "../../images/10022.png"
+import icon1 from "../../images/10019.svg";
+import icon2 from "../../images/10020.png";
+import icon3 from "../../images/10021.png";
+import icon4 from "../../images/10022.png";
 
 export const pricingPlans = [
   {
@@ -9,11 +9,11 @@ export const pricingPlans = [
     name: "Free",
     price: "$00.00",
     features: [
-      "Generate up to 15,000 words/month",
-      "AI-powered writing assistance",
-      "Supports 10 global languages",
-      "40 AI-created images/month",
-      "Limited chatbot interaction",
+      "Access up to 15 speech exercises/month",
+      "Basic AI pronunciation feedback",
+      "Supports 5 global languages",
+      "10 audio uploads/month including different languages",
+      "Limited therapy chat support",
     ],
     icon: icon1,
   },
@@ -22,12 +22,11 @@ export const pricingPlans = [
     name: "Premium",
     price: "$5.00",
     features: [
-      "Generate up to 30,000 words/month",
-      "Smart AI content refinement",
-      "SEO-enhanced text generation",
-      "25+ language translation",
-      "40 AI-created images/month",
-
+      "Access up to 30 speech exercises/month",
+      "Smart AI pronunciation improvement",
+      "AI-based language support",
+      "15 audio uploads/month",
+      "Unlimited chat support",
     ],
     icon: icon2,
   },
@@ -36,12 +35,11 @@ export const pricingPlans = [
     name: "Pro",
     price: "$10.00",
     features: [
-      "Generate up to 60,000 words/month",
-      "AI-powered research insights",
-      "Advanced text optimization",
-      "25+ language translation",
-      "40 AI-created images/month",
-    
+      "Access up to 60 speech exercises/month",
+      "Real-time speech feedback",
+      "Advanced AI-driven corrections",
+      "Supports more than 15 languages",
+      "30 audio uploads/month including different languages",
     ],
     icon: icon3,
   },
@@ -50,11 +48,11 @@ export const pricingPlans = [
     name: "Unlimited",
     price: "$20.00",
     features: [
-      "Generate unlimted amount of words/month",
-      "Real-time AI content suggestions",
-      "Supports 56+ global languages",
-      "40 AI-created images/month",
-      "Unlimited chatbot engagement",
+      "Unlimited speech exercises/month",
+      "Real-time pronunciation correction",
+      "Supports 25+ global languages",
+      "Unlimited audio uploads",
+      "Unlimited therapist chat support",
     ],
     icon: icon4,
   },

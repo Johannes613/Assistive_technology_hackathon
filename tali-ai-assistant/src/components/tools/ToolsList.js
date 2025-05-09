@@ -6,26 +6,26 @@ import icon3 from "../../images/10026.svg";
 export const categories = [
   {
     id: 1,
-    title: "Content",
-    buttonText: "Select & Try",
+    title: "Pronunciation Feedback",
+    buttonText: "Try Now",
     icon: icon1,
   },
   {
     id: 2,
-    title: "Coding",
-    buttonText: "Select & Try",
+    title: "Speech Exercises",
+    buttonText: "Start Exercise",
     icon: icon2,
   },
   {
     id: 3,
-    title: "Writing",
-    buttonText: "Select & Try",
+    title: "Progress Tracking",
+    buttonText: "View Progress",
     icon: icon3,
   },
   {
     id: 4,
-    title: "Social",
-    buttonText: "Select & Try",
+    title: "Multilingual Support",
+    buttonText: "Explore Languages",
     icon: icon4,
   },
 ];
