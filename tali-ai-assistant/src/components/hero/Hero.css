@@ -1,0 +1,67 @@
+div.hero{
+    background: url("../../images/10040.jpg");
+    height: 100vh;
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.80);
+    background-blend-mode: multiply;
+}
+.hero-head{
+    color: white;
+    width:42%;
+    margin: auto;
+    font-size: 2.6rem;
+    line-height: 3.6rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+
+}
+span.clip{
+    background: linear-gradient(90deg, #7B3EFF 45.53%, #00C4FF 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent !important;
+
+
+}
+.get-started{
+    
+    background: #4342F5;
+    color: var(--white);
+    padding: 9px 25px;
+    display: inline-block;
+    font-weight: 500;
+    border-radius: 25px;
+    border: 1px solid #4342F5;
+    font-size: 15px;
+    transition: 0.8s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    margin-right: 30px;
+}
+.watch-video{
+    background-color:rgba(217,217,217,0.06);
+    padding: 9px 25px;
+    color: var(--white);
+    display: inline-block;
+    font-weight: 500;
+    border-radius: 25px;
+    border: 1px solid rgba(217,217,217,0.06);
+    font-size: 15px;
+    transition: 0.8s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+   
+}
+.watch-video:hover{
+    background: #4342F5;
+    color: var(--white);
+
+}
+.get-started:hover{
+    color: white;
+    background-color:rgba(217,217,217,0.06) ;
+    border: 1px solid rgba(151,150,233,0.2);
+}

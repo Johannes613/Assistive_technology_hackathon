@@ -1,0 +1,32 @@
+div.about {
+    margin-top:  80px;
+    padding-bottom: 20px;
+  }
+  .tick-list,.color-red {
+    list-style: none;
+    padding-left: 0;
+    font-weight: 550;
+    line-height: 2.7 !important;
+  }
+  div.right-section {
+    padding-left: 5vw !important;
+  }
+  .read-more{
+    border: 1px solid var(--primary-color);
+  }
+  .check-mark{
+    margin-right: 10px;
+    font-size: 22px;
+    /* font-weight: 100; */
+    color: var(--primary-color);
+  }
+  img.about-img {
+    height: 83vh !important;
+    object-fit: cover;
+  }
+  h1.about-head {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+  }
+  

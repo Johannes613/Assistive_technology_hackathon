@@ -1,0 +1,43 @@
+div.our-team{
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+div.each-member{
+    position: relative;
+}
+div.over-lay{
+    position: absolute;
+    bottom: 30px;
+    background-color: #ffffff29; 
+    right: 0;
+    height: 30%;
+    border-radius: 10px;
+    border-left: 6px solid #7B3EFF;
+    transition: all 0.2s ease;
+    padding: 15px 30px;
+}
+div.over-lay h3{
+    font-size: 23px;
+}
+.social-team{
+    font-weight: 600;
+    font-size: 25px;
+    cursor: pointer;
+}
+div.over-lay span{
+    font-size: 15px;
+}
+
+div.over-lay p{
+    display: none;
+}
+div.each-member:hover div.over-lay{
+    height: 36%;
+
+}
+div.over-lay:hover p{
+    transform: translateY(10%);
+    display: block;
+    
+
+}

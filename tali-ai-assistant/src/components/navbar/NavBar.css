@@ -1,0 +1,21 @@
+img.logo-img {
+  width: 150px;
+}
+.nav-link {
+  color: white !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+  font-size: 15px !important;
+}
+.nav-link:hover {
+  color: var(--primary-color) !important;
+}
+div.nav-bar {
+  background: transparent !important;
+  position: absolute;
+  width: 100%;
+}
+.contact-btns {
+  background: var(--primary-color) !important;
+  border: none !important;
+}

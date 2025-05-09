@@ -1,0 +1,70 @@
+.color-red li::before {
+  font-weight: bold;
+  margin-right: 12px;
+}
+.color-red li{
+  font-size: 16px;
+}
+div.premium {
+  margin-top: 150px;
+}
+.each-plan {
+  box-shadow: 0px 5px 13px rgba(7, 62, 227, 0.3);
+  border: none !important;
+  background-color: #192337;
+  border-radius: 13px;
+}
+.sub-btn {
+  padding: 12px !important;
+  background-color: var(--primary-color) !important;
+  font-size: 14px !important;
+  border-radius: 3px !important;
+  outline: none !important;
+}
+.plan-icon {
+  width: 50px;
+  margin: auto;
+}
+.prime {
+  background-color: var(--primary-color) !important;
+  padding: 0 !important ;
+}
+#prof-plan {
+  color: black !important;
+}
+.sec-title {
+  font-size: 17px;
+}
+.plan-details {
+  font-size: 18px;
+  color: white;
+  margin: auto;
+  line-height: 30px;
+}
+span.small-ad {
+  font-size: 20px !important;
+}
+span.amount-prem {
+  font-size: 2.5rem !important;
+}
+span.dol {
+  position: absolute;
+  left: 10px;
+}
+.prof-plan {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+.prof-li li::before {
+  color: white !important;
+}
+.plan-type {
+  color: white;
+}
+.nv-link {
+  text-decoration: none;
+  background-color: var(--primary-color);
+  padding: 13px 20px;
+  color: white;
+  border-radius: 5px;
+}

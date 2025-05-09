@@ -1,0 +1,17 @@
+div.success{
+    margin-top: 150px;
+  
+}
+div.succ-list  div.child-first{
+    padding: 10px 35px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 140px !important;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+
+}

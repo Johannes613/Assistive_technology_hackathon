@@ -1,0 +1,60 @@
+div.contact{
+    margin-top: 150px;
+}
+div.contact-head{
+    background: url("../../images/cta-bg.png");
+    min-height: 500px;
+}
+.arrow-btn{
+
+    background:linear-gradient(90deg, #7B3EFF 45.53%, #00C4FF 100%); ;
+    color: white;
+    width: 23px;
+    height: 23px;
+    padding: 5px;
+    font-size: 13px;
+    border-radius: 50%;
+    margin-bottom: 2px;
+    
+}
+form.for{
+
+}
+.btn-contact{
+    font-size: 17px !important;
+}
+div.social-media .btn a{
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 5px;
+    border-radius: 50%;
+}
+.contact-form{
+    background-color: #192337 !important;
+    min-height: 35vh;
+    padding: 30px;
+    border: 1px solid #476180;
+    border-radius: 15px;
+}
+
+
+.inputs:focus{
+    border: 1px solid var(--primary-color);
+}
+.inputs{
+    background-color: inherit !important;
+    color: white !important;
+    padding: 12px 10px !important;
+    border: 1px solid #476180;
+    font-size: 14px;
+   
+}
+.inputs::placeholder{
+    color: rgba(180, 174, 174, 0.806) !important;
+}
+.contact-submit{
+    width: 130px;
+    font-size: 15px;
+    border-radius: 40px;
+    padding: 10px 10px !important;
+}

@@ -1,0 +1,25 @@
+div.services .serv-icon{
+    width: 40px !important;
+    height: 40px !important;
+    align-self: flex-start;
+}
+p.read-more-text{
+    color: var(--primary-color) !important;
+    font-size: 15px;
+    font-weight: 550;
+    cursor: pointer;
+}
+.each-services{
+   
+    border-radius: 10px;
+    min-height: 315px !important;
+    border: 1px solid #2D4C70;
+}
+div.services{
+    background-color: var(--dark) !important;
+    color: white !important;
+}
+.serv-desc{
+    font-size: 15px;
+    color: rgb(223, 223, 223);
+}

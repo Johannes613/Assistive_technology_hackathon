@@ -1,0 +1,30 @@
+div.tools{
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    background: url("../../images/10041.png");
+    align-items: center;
+    justify-content: center;
+    min-height: 550px;
+ 
+}
+div.succ-list  div.child-first{
+    padding: 10px 35px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 190px !important;
+    text-align: center;
+    background-color: #FFFFFF0A;
+    border: 1px solid #ffffff30; ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+
+}
+img.tool-icon{
+    background-color: var(--primary-color);
+    padding: 12px;
+    border-radius: 50%;
+}

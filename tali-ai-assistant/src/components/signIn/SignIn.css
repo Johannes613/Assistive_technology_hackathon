@@ -1,0 +1,20 @@
+.custom-modal .modal-dialog {
+  max-width: 450px !important;
+  padding: 20px;
+}
+.custom-modal {
+  border-radius: none !important;
+}
+.modal-change {
+  background-color: var(--dark) !important;
+  border-radius: 0 !important;
+}
+.color-fix {
+  font-weight: 400;
+  color: rgb(232, 232, 232) !important;
+  background-color: var(--dark) !important;
+  border-color: #343d50 !important;
+}
+.color-fix::placeholder {
+  color: rgb(185, 185, 185) !important;
+}
