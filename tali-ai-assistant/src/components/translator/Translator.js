@@ -1,8 +1,127 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import "./Translator.css";
 import img from "../../images/ai-logo.png";
+import * as sdk from "microsoft-cognitiveservices-speech-sdk";
 
 export default function Translator() {
+  const [scores, setScores] = useState(null);
+  const [wordDetails, setWordDetails] = useState([]);
+  const [isRecording, setIsRecording] = useState(false);
+  const [referenceText, setReferenceText] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("en-US");
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+
+  const key = process.env.REACT_APP_SPEECH_KEY;
+  const region = process.env.REACT_APP_SPEECH_REGION;
+
+  const startRecording = async () => {
+    if (referenceText.trim() === "") {
+      alert("Please enter a reference text before starting the recording.");
+      return;
+    }
+
+    setIsRecording(true);
+    audioChunksRef.current = [];
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const mediaRecorder = new MediaRecorder(stream);
+    mediaRecorderRef.current = mediaRecorder;
+
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) {
+        audioChunksRef.current.push(e.data);
+      }
+    };
+
+    mediaRecorder.onstop = async () => {
+      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+      const arrayBuffer = await audioBlob.arrayBuffer();
+
+      const audioContext = new AudioContext({ sampleRate: 16000 });
+      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+      const rawPCMData = audioBuffer.getChannelData(0);
+      const wavBuffer = encodeWAV(rawPCMData, audioBuffer.sampleRate);
+
+      const pushStream = sdk.AudioInputStream.createPushStream();
+      pushStream.write(new Uint8Array(wavBuffer));
+      pushStream.close();
+
+      const pronunciationConfig = new sdk.PronunciationAssessmentConfig(
+        referenceText,
+        sdk.PronunciationAssessmentGradingSystem.HundredMark,
+        sdk.PronunciationAssessmentGranularity.Word,
+        true
+      );
+
+      const audioConfig = sdk.AudioConfig.fromStreamInput(pushStream);
+      const speechConfig = sdk.SpeechConfig.fromSubscription(key, region);
+      speechConfig.speechRecognitionLanguage = selectedLanguage;
+
+      const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
+      pronunciationConfig.applyTo(recognizer);
+
+      recognizer.recognizeOnceAsync((result) => {
+        if (result.reason === sdk.ResultReason.RecognizedSpeech) {
+          const json = JSON.parse(result.properties.getProperty(sdk.PropertyId.SpeechServiceResponse_JsonResult));
+          const assessment = json.NBest[0].PronunciationAssessment;
+          const words = json.NBest[0].Words;
+
+          setScores(assessment);
+          setWordDetails(words);
+        } else {
+          console.error("Speech not recognized:", result.errorDetails);
+        }
+        recognizer.close();
+      }, (err) => {
+        console.error("Error recognizing speech:", err);
+        recognizer.close();
+      });
+    };
+
+    mediaRecorder.start();
+  };
+
+  const stopRecording = () => {
+    setIsRecording(false);
+    mediaRecorderRef.current?.stop();
+  };
+
+  const encodeWAV = (samples, sampleRate) => {
+    const buffer = new ArrayBuffer(44 + samples.length * 2);
+    const view = new DataView(buffer);
+
+    const writeString = (view, offset, string) => {
+      for (let i = 0; i < string.length; i++) {
+        view.setUint8(offset + i, string.charCodeAt(i));
+      }
+    };
+
+    const floatTo16BitPCM = (output, offset, input) => {
+      for (let i = 0; i < input.length; i++) {
+        let s = Math.max(-1, Math.min(1, input[i]));
+        output.setInt16(offset + i * 2, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+      }
+    };
+
+    writeString(view, 0, "RIFF");
+    view.setUint32(4, 36 + samples.length * 2, true);
+    writeString(view, 8, "WAVE");
+    writeString(view, 12, "fmt ");
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    writeString(view, 36, "data");
+    view.setUint32(40, samples.length * 2, true);
+
+    floatTo16BitPCM(view, 44, samples);
+    return buffer;
+  };
+
   return (
     <div className="translator">
       <div className="left-section">
@@ -12,147 +131,86 @@ export default function Translator() {
           </div>
           <div className="title">AI ProHelper</div>
         </div>
+
         <div className="drag-audio-file-area">
-          <div className="drag-audio-file-text">
-            Drag and drop an audio file here
-          </div>
-          <div className="drag-audio-file-text">or</div>
-          <button className="upload-audio-button">Upload Audio</button>
+          <textarea
+            name="reference-text"
+            value={referenceText}
+            onChange={(e) => setReferenceText(e.target.value)}
+            rows={4}
+            placeholder="Enter your reference text here"
+          ></textarea>
+          <button
+            onClick={isRecording ? stopRecording : startRecording}
+            className="upload-audio-button"
+          >
+            {isRecording ? "Stop Recording" : "Start Recording"}
+          </button>
         </div>
+
         <div className="selection-box">
           <label htmlFor="audio-language">Select Audio Language:</label>
-          <select id="audio-language" className="audio-language-select">
-            <option value="english">English</option>
-            <option value="spanish">Spanish</option>
-            <option value="french">French</option>
-            <option value="german">German</option>
+          <select
+            id="audio-language"
+            className="audio-language-select"
+            value={selectedLanguage}
+            onChange={(e) => setSelectedLanguage(e.target.value)}
+          >
+            <option value="en-US">English</option>
+            <option value="es-ES">Spanish</option>
+            <option value="fr-FR">French</option>
+            <option value="de-DE">German</option>
           </select>
         </div>
+
         <div className="selection-box">
           <label htmlFor="task-type">Select Task Type:</label>
-          <select id="task-type" className="task-type-select">
+          <select id="task-type" className="task-type-select" defaultValue="translation">
             <option value="transcription">Transcription</option>
             <option value="translation">Pronunciation Assessment</option>
           </select>
         </div>
       </div>
 
-      {/* /* right-section area where the ai assessed result will display */}
       <div className="right-section">
         <div className="right-section-header">
-          {/* accuracy score */}
           <div className="score-container">
             <div className="score">Accuracy Score</div>
-            <div className="score-value">95%</div>
+            <div className="score-value">
+              {scores ? `${scores.AccuracyScore}%` : "--"}
+            </div>
           </div>
-          {/* completeness score */}
           <div className="score-container">
             <div className="score">Completeness Score</div>
-            <div className="score-value">90%</div>
+            <div className="score-value">
+              {scores ? `${scores.CompletenessScore}%` : "--"}
+            </div>
           </div>
-          {/* fluency score */}
           <div className="score-container">
             <div className="score">Fluency Score</div>
-            <div className="score-value">85%</div>
+            <div className="score-value">
+              {scores ? `${scores.FluencyScore}%` : "--"}
+            </div>
           </div>
         </div>
-        {/* table to display score or each word along with suggestion */}
+
         <div className="table-container">
-          <table class="table">
+          <table className="table">
             <thead>
               <tr>
-                <th scope="col">Word</th>
-                <th scope="col">Score</th>
-                <th scope="col">Error Type</th>
-                <th scope="col">Suggestion</th>
-                <th scope="col">Audio</th>
+                <th>Word</th>
+                <th>Score</th>
+                <th>Suggestion</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Hi</td>
-                <td>95%</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <td>There</td>
-                <td>95%</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <td>How</td>
-                <td>95%</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-              </tr>
-              <tr>
-                <td>How</td>
-                <td>95%</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-              </tr>
-              <tr>
-                <td>How</td>
-                <td>95%</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-              </tr>
-              <tr>
-                <td>How</td>
-                <td>95%</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-              </tr>
-              <tr>
-                <td>How</td>
-                <td>95%</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-              </tr>
-              <tr>
-                <td>How</td>
-                <td>95%</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-              </tr>
-              <tr>
-                <td>How</td>
-                <td>95%</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-              </tr>
-              <tr>
-                <td>How</td>
-                <td>95%</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-              </tr>
-              <tr>
-                <td>How</td>
-                <td>95%</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-              </tr>
-              <tr>
-                <td>How</td>
-                <td>95%</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-              </tr>
+              {wordDetails.map((word, idx) => (
+                <tr key={idx}>
+                  <td>{word.Word}</td>
+                  <td>{word.AccuracyScore}%</td>
+                  <td>{word.ErrorType ? "Check pronunciation" : "✔"}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

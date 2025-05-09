@@ -8,6 +8,19 @@
   width: 100%;
   height: 100%;
 }
+textarea {
+  width: 100%;
+  padding: 10px;
+  height: 300px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #2b2d31;
+  border: 0;
+  /* resize: none; */
+  outline: none;
+}
 .translator .left-section {
   display: flex;
   flex-direction: column;
@@ -27,7 +40,7 @@
 .left-section .left-section-header .title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #4caf50;
+  color: #854fee;
 }
 .left-section .left-section-header .icon img {
   width: 40px;
@@ -39,16 +52,16 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 1rem;
+  padding: 5px;
   border: 2px dashed #ccc;
   width: 100%;
-  height: 200px;
+  height: 250px;
   border: 2px dashed #ccc;
   border-radius: 8px;
   background-color: #2b2d31;
 }
 .left-section .drag-audio-file-area .upload-audio-button {
-  background-color: #4caf50;
+  background-color: #854fee;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -56,7 +69,7 @@
   cursor: pointer;
 }
 .left-section .drag-audio-file-area .upload-audio-button:hover {
-  background-color: #45a049;
+  background-color: #854fee;
 }
 .left-section .drag-audio-file-area .upload-audio-button:disabled {
   background-color: #ccc;
@@ -115,7 +128,7 @@
 .right-section .right-section-header .score-container .score {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #4caf50;
+  color: #854fee;
 }
 .right-section .right-section-header .score-container .score-value {
   font-size: 2rem;
@@ -155,13 +168,18 @@
   color: white;
 }
 .right-section .table-container table thead tr th {
-  background-color: #4caf50 !important;
+  background-color: #844fee5d !important;
   color: white;
   font-weight: bold;
 }
 .right-section .table-container table tbody tr:hover {
-  background-color: #4caf50 !important;
+  background-color: #854fee !important;
   color: white;
   border: none !important;
   cursor: pointer;
+}
+.upload-audio-button{
+  padding: 5px;
+  font-size: 12px;
+  background: linear-gradient(90deg, #7b3effa4 45.53%, #00c3ffb0 100%);
 }
