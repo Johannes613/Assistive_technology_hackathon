@@ -4,10 +4,8 @@ import { onAuthStateChanged } from "firebase/auth";
 
 export const GlobalContext = createContext(null);
 
-
 const GlobalStateProvider = ({children})=>{
     const [currentUser,setCurrentUser] = useState(null);
-
 
     useEffect(() => {
         const unSub = onAuthStateChanged(auth, (user) => {
@@ -27,12 +25,9 @@ const GlobalStateProvider = ({children})=>{
             currentUser,
             setCurrentUser
         }}
-
-        
         >
             {children}
         </GlobalContext.Provider>
     )
-
 }
 export default GlobalStateProvider;
