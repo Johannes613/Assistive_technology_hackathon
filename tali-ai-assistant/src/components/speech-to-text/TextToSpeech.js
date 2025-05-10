@@ -21,6 +21,15 @@ export default function TextToSpeech() {
   const [volume, setVolume] = useState("default");
   const synthesizerRef = useRef(null);
 
+  // Language to voice mapping
+  const languageToVoiceMap = {
+    "English": "en-US-JennyNeural",
+    "Spanish": "es-ES-ElviraNeural",
+    "French": "fr-FR-DeniseNeural",
+    "German": "de-DE-KatjaNeural",
+    "Portuguese": "pt-BR-FranciscaNeural"
+  };
+
   const handleSynthesizeText = () => {
     if (!text) {
       alert("Please enter some text.");
@@ -75,72 +84,86 @@ export default function TextToSpeech() {
   };
 
   const handleReset = () => {
-    // Stop and dispose synthesizer
     if (synthesizerRef.current) {
       synthesizerRef.current.stopSpeakingAsync(() => {
         synthesizerRef.current.close();
         synthesizerRef.current = null;
-        console.log("Speech stopped and synthesizer reset.");
       });
     }
-
-    // Clear text and reset state
     setText("");
     setReferenceText("");
     setIsSynthesizing(false);
   };
 
-  const [languages, setLanguages] = useState([]);
-
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((res) => res.json())
-      .then((data) => {
-        const languageSet = new Set();
-        data.forEach((country) => {
-          const langs = country.languages;
-          if (langs) {
-            Object.values(langs).forEach((lang) => languageSet.add(lang));
-          }
-        });
-        setLanguages([...languageSet]);
-      });
-  }, []);
-
   const generateRandomParagraph = () => {
-    const lines = [];
-    const randomWords = [
-      "example",
-      "voice",
-      "speech",
-      "language",
-      "help",
-      "interactive",
-      "user",
-      "pronunciation",
-      "system",
-      "application",
-      "feedback",
-      "analysis",
-      "technology",
-      "react",
-      "interface",
-      "improvement",
-      "challenge",
-      "session",
-      "accuracy",
-      "integration",
-    ];
-
-    for (let i = 0; i < 7; i++) {
-      let line = "";
-      for (let j = 0; j < 6; j++) {
-        line +=
-          randomWords[Math.floor(Math.random() * randomWords.length)] + " ";
+    const languageTexts = {
+      "English": {
+        words: [
+          "hello", "world", "computer", "programming", "language", "speech",
+          "recognition", "technology", "application", "development", "interface",
+          "user", "experience", "design", "algorithm", "database", "network",
+          "security", "cloud", "storage", "framework", "component", "system"
+        ],
+        structure: "The {0} is {1} for {2} because it {3}. {4} {5} {6} in {7}."
+      },
+      "Spanish": {
+        words: [
+          "hola", "mundo", "computadora", "programación", "idioma", "voz",
+          "reconocimiento", "tecnología", "aplicación", "desarrollo", "interfaz",
+          "usuario", "experiencia", "diseño", "algoritmo", "base de datos", "red",
+          "seguridad", "nube", "almacenamiento", "marco", "componente", "sistema"
+        ],
+        structure: "El {0} es {1} para {2} porque {3}. {4} {5} {6} en {7}."
+      },
+      "French": {
+        words: [
+          "bonjour", "monde", "ordinateur", "programmation", "langue", "voix",
+          "reconnaissance", "technologie", "application", "développement", "interface",
+          "utilisateur", "expérience", "conception", "algorithme", "base de données", "réseau",
+          "sécurité", "nuage", "stockage", "cadre", "composant", "système"
+        ],
+        structure: "Le {0} est {1} pour {2} car il {3}. {4} {5} {6} dans {7}."
+      },
+      "German": {
+        words: [
+          "hallo", "welt", "computer", "programmierung", "sprache", "sprache",
+          "erkennung", "technologie", "anwendung", "entwicklung", "schnittstelle",
+          "benutzer", "erfahrung", "design", "algorithmus", "datenbank", "netzwerk",
+          "sicherheit", "wolke", "speicher", "rahmen", "komponente", "system"
+        ],
+        structure: "Das {0} ist {1} für {2}, weil es {3}. {4} {5} {6} in {7}."
+      },
+      "Portuguese": {
+        words: [
+          "olá", "mundo", "computador", "programação", "idioma", "voz",
+          "reconhecimento", "tecnologia", "aplicação", "desenvolvimento", "interface",
+          "usuário", "experiência", "design", "algoritmo", "banco de dados", "rede",
+          "segurança", "nuvem", "armazenamento", "estrutura", "componente", "sistema"
+        ],
+        structure: "O {0} é {1} para {2} porque {3}. {4} {5} {6} em {7}."
       }
-      lines.push(line.trim() + ".");
+    };
+
+    // Get the language name from the voice
+    const language = Object.keys(languageToVoiceMap).find(
+      key => languageToVoiceMap[key] === langName
+    ) || "English";
+
+    const languageData = languageTexts[language] || languageTexts["English"];
+    const { words, structure } = languageData;
+    
+    const sentences = [];
+    for (let i = 0; i < 5; i++) {
+      const sentence = structure
+        .split(/\{(\d+)\}/)
+        .map((part, index) => 
+          index % 2 === 1 ? words[Math.floor(Math.random() * words.length)] : part
+        )
+        .join('');
+      sentences.push(sentence);
     }
-    const paragraph = lines.join("\n");
+    
+    const paragraph = sentences.join('\n');
     setReferenceText(paragraph);
     setText(paragraph);
   };
@@ -168,9 +191,9 @@ export default function TextToSpeech() {
                 value={langName}
                 onChange={(e) => setLangName(e.target.value)}
               >
-                {languages.map((lang, index) => (
-                  <option key={index} value={lang}>
-                    {lang}
+                {Object.entries(languageToVoiceMap).map(([language, voice]) => (
+                  <option key={voice} value={voice}>
+                    {language}
                   </option>
                 ))}
               </select>
