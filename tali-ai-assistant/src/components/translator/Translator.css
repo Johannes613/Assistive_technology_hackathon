@@ -38,7 +38,7 @@ textarea {
   gap: 1rem;
   align-items: center;
 }
-.left-section .left-section-header .title {
+.left-section .left-section-header .title , .title{
   font-size: 1.5rem;
   font-weight: bold;
   color: #854fee;

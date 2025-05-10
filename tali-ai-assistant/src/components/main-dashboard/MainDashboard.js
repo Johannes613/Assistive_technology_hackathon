@@ -65,7 +65,7 @@ export default function MainDashboard() {
       {/* Header Section */}
       <div className="dashboard-header">
         <div className="header-box">
-          <div className="header-date">📅 May 09, 2025 18:27 PM</div>
+          <div className="header-date">📅 May 10, 2025 5:20 PM</div>
           <h2 className="header-welcome">Welcome, {userData.name}</h2>
           <span className="current-plan">CURRENT PLAN</span>
           <h3 className="no-plan">{userData.activePlan}</h3>

@@ -4,6 +4,8 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../config/firebaseConfig";
 import { toast, ToastContainer } from "react-toastify";
+import { Timestamp } from "firebase/firestore";
+
 
 import {
   createUserWithEmailAndPassword,
@@ -34,8 +36,7 @@ export default function SignIn() {
     await setDoc(doc(db, "users", user.uid), {
       name: username, // 🔹 Store the username here
       email,
-      createdAt: new Date().toISOString(),
-
+      createdAt: Timestamp.now(),
       // User data
       assessmentCredits: 4,
       wordsPracticed: 0,

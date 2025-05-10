@@ -12,7 +12,7 @@ export default function Services() {
       <div className="container">
         <div className="row services fac-head mb-5">
           <div className="col d-flex align-items-center">
-            <h1 className="tag px-3 mx-auto ">Why Choose <span className="clip">Chat Speak AI?</span></h1>
+            <h1 className="tag px-3 mx-auto ">Why Choose <span className="clip">ChatSpeak AI?</span></h1>
           </div>
         </div>
         <div className="row services g-4 mt-5 pt-5">

@@ -22,7 +22,7 @@ export default function HomePage() {
         <Premium/>
         <Tools/>
         <Faq/>
-        <OurTeam/>
+        {/* <OurTeam/> */}
         <Contact/>
         <Footer/>
     </div>

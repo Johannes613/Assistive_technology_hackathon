@@ -9,8 +9,8 @@ import { FaFacebookF } from "react-icons/fa6";
 import { CiTwitter } from "react-icons/ci";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { FiGithub } from "react-icons/fi";
-import { CiYoutube } from "react-icons/ci";
 import { Form } from "react-bootstrap";
+
 export default function Contact() {
   return (
     <div className="contact">
@@ -30,45 +30,42 @@ export default function Contact() {
               Get in <span className="clip">Touch</span>
             </h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur
-              Doloremque, quis.
+              Have questions or feedback? Reach out to the AI ProHelper team—we'd love to hear from you and help you improve your speech with smart AI tools.
             </p>
             <p>
               <FaLocationPin /> Abu Dhabi University, Abu Dhabi
             </p>
             <p>
-              {" "}
-              <CiMail /> taliInfo@gmail.ocm
+              <CiMail /> clearspeakai712@gmail.com
             </p>
             <p>
-              {" "}
-              <FaPhoneAlt />  054-394-8653
+              <FaPhoneAlt /> +971 54 394 8653
             </p>
             <div className="social-media d-flex gap-1">
-              <button className="btn  ">
-                <a href="https://github.com/Johannes613">
+              <button className="btn">
+                <a href="https://github.com/Johannes613" target="_blank" rel="noopener noreferrer">
                   <FiGithub className="icons" />
                 </a>
               </button>
-              <button className="btn  ">
-                <a href="https://www.linkedin.com/in/yohannis-adamu-1837832b9">
+              <button className="btn">
+                <a href="https://www.linkedin.com/in/yohannis-adamu-1837832b9" target="_blank" rel="noopener noreferrer">
                   <SlSocialLinkedin className="icons" />
                 </a>
               </button>
-              <button className="btn  ">
-                <a href="https://www.facebook.com/share/162Qps5sq2/?mibextid=wwXIfr">
+              <button className="btn">
+                <a href="https://www.facebook.com/share/162Qps5sq2/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
                   <FaFacebookF className="icons" />
                 </a>
               </button>
-              <button className="btn  ">
-                <a href="https://www.facebook.com/share/162Qps5sq2/?mibextid=wwXIfr">
+              <button className="btn">
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
                   <CiTwitter className="icons" />
                 </a>
               </button>
             </div>
           </div>
-          <div className="col-12  col-lg-6  contact-form   ">
-          <form className="  d-flex flex-column justify-content-center gap-4 for">
+          <div className="col-12 col-lg-6 contact-form">
+            <form className="d-flex flex-column justify-content-center gap-4 for">
               <div className="form-sections d-flex gap-3 mb-2 mt-2">
                 <Form.Control
                   className="inputs py-2"
@@ -77,10 +74,9 @@ export default function Contact() {
                   placeholder="Full Name"
                   required
                 />
-              
               </div>
               <div className="form-sections d-flex gap-3 mb-3">
-              <Form.Control
+                <Form.Control
                   className="inputs py-2"
                   size="lg"
                   type="email"
@@ -88,16 +84,19 @@ export default function Contact() {
                   required
                 />
               </div>
-                <Form.Control
-                  className="inputs py-2"
-                  size="lg"
-                  type="tel"
-                  placeholder="Phone number"
-                  required
-                />
-        
-                <Form.Control className="inputs" placeholder="Please Write What You want" as="textarea" rows={5} />
-             
+              <Form.Control
+                className="inputs py-2"
+                size="lg"
+                type="tel"
+                placeholder="Phone Number"
+                required
+              />
+              <Form.Control
+                className="inputs"
+                placeholder="Please write your message here"
+                as="textarea"
+                rows={5}
+              />
               <Button
                 variant="primary"
                 className="get-started contact-submit py-2"
