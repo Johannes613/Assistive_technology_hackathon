@@ -13,35 +13,65 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { RiVoiceAiLine } from "react-icons/ri";
-
+ 
 export default function TextToSpeech() {
+ 
+ 
   const theme = useTheme();
   const [langName, setLangName] = useState("en-US-JennyNeural");
   const [text, setText] = useState("");
   const [isSynthesizing, setIsSynthesizing] = useState(false);
   const [audioUrl, setAudioUrl] = useState(null);
-
+ 
+ 
   // Mock the SpeechConfig to prevent errors
   const speechConfig = {
     speechSynthesisVoiceName: langName,
   };
-
-  const handleSynthesizeText = () => {
-    if (!text) {
-      alert("Please enter some text.");
-      return;
-    }
-
-    setIsSynthesizing(true);
-
-    // Mock synthesizer behavior
-    setTimeout(() => {
-      console.log("Synthesis completed.");
-      setAudioUrl(null);
+ 
+const handleSynthesizeText = () => {
+  if (!text) {
+    alert("Please enter some text.");
+    return;
+  }
+ 
+  const speechKey = process.env.REACT_APP_SPEECH_KEY;
+  const speechRegion = process.env.REACT_APP_SPEECH_REGION;
+ 
+  if (!speechKey || !speechRegion) {
+    alert("Missing Azure Speech credentials.");
+    return;
+  }
+ 
+  const speechConfig = SpeechConfig.fromSubscription(speechKey, speechRegion);
+  speechConfig.speechSynthesisVoiceName = langName;
+ 
+  const audioConfig = AudioConfig.fromDefaultSpeakerOutput();
+ 
+  const synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
+ 
+  setIsSynthesizing(true);
+ 
+  synthesizer.speakTextAsync(
+    text,
+    (result) => {
+      if (result.reason === ResultReason.SynthesizingAudioCompleted) {
+        console.log("Synthesis finished.");
+      } else {
+        console.error("Speech synthesis failed:", result.errorDetails);
+      }
       setIsSynthesizing(false);
-    }, 1000); // Mock the 1-second synthesize delay
-  };
-
+      synthesizer.close();
+    },
+    (err) => {
+      console.error("Speech synthesis error:", err);
+      setIsSynthesizing(false);
+      synthesizer.close();
+    }
+  );
+};
+ 
+ 
   const handlePlayAudio = () => {
     if (audioUrl) {
       const audio = new Audio(audioUrl);
@@ -50,7 +80,7 @@ export default function TextToSpeech() {
       alert("No audio available. Please synthesize first.");
     }
   };
-
+ 
   const languages = [
     { code: "en-US-JennyNeural", name: "English (US)" },
     { code: "am-ET-MekdesNeural", name: "Amharic" },
@@ -59,7 +89,7 @@ export default function TextToSpeech() {
     { code: "de-DE-KatjaNeural", name: "German" },
     { code: "ar-SA-ZariyahNeural", name: "Arabic" },
   ];
-
+ 
   return (
     <div className="text-to-speech">
       <div className="container service-section">
@@ -72,7 +102,7 @@ export default function TextToSpeech() {
           voluptatibus sit error doloribus exercitationem laborum quis tempora
           explicabo esse quidem!
         </p>
-
+ 
         <div className="row selectors">
           <div className="col-md-6 col-lg-3">
             <FormControl sx={{ m: 0, width: 300, py: 0 }}>
@@ -91,7 +121,7 @@ export default function TextToSpeech() {
           </div>
           {/* You can add more select options or remove this section if needed */}
         </div>
-
+ 
         <div className="row">
           <textarea
             rows={8}
@@ -99,7 +129,7 @@ export default function TextToSpeech() {
             className="text-area"
             placeholder="Enter the text you want to convert to speech"
           />
-
+ 
           <div className="text-end">
             <button
               onClick={handleSynthesizeText}
@@ -108,7 +138,7 @@ export default function TextToSpeech() {
             >
               {isSynthesizing ? "Synthesizing..." : "Synthesize"}
             </button>
-
+ 
             {/* You can uncomment this once audio functionality is properly set up */}
             {/* <button onClick={handlePlayAudio} disabled={!audioUrl} className="get-started overide-me mb-5 mt-0">
               Listen
@@ -119,3 +149,4 @@ export default function TextToSpeech() {
     </div>
   );
 }
+ 
