@@ -26,6 +26,7 @@ export default function SignIn() {
     setLoading(true);
     const formDatas = new FormData(formRef.current);
     const { email, password } = Object.fromEntries(formDatas.entries());
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -33,9 +34,51 @@ export default function SignIn() {
         password
       );
       const user = userCredential.user;
-      await setDoc(doc(db, "userCart", user.uid), {
-        cart: [],
+
+      await setDoc(doc(db, "users", user.uid), {
+        email,
+        createdAt: new Date().toISOString(),
+
+        // User data
+        assessmentCredits: 4,
+        wordsPracticed: 0,
+        sentencesAnalyzed: 0,
+        minutesOfFeedback: 0,
+        correctPronunciationRate: 0,
+        exercisesCompleted: 0,
+        customWordsTrained: 0,
+        feedbackSessions: 0,
+        audioUploads: 0,
+
+        // Data for pronunciation and fluency tracking
+        pronunciationAccuracyData: [
+          { day: "Mon", accuracy: 0 },
+          { day: "Tue", accuracy: 0 },
+          { day: "Wed", accuracy: 0 },
+          { day: "Thu", accuracy: 0 },
+          { day: "Fri", accuracy: 0 },
+          { day: "Sat", accuracy: 0 },
+          { day: "Sun", accuracy: 0 },
+        ],
+
+        fluencyData: [
+          { day: "Mon", fluency: 0 },
+          { day: "Tue", fluency: 0 },
+          { day: "Wed", fluency: 0 },
+          { day: "Thu", fluency: 0 },
+          { day: "Fri", fluency: 0 },
+          { day: "Sat", fluency: 0 },
+          { day: "Sun", fluency: 0 },
+        ],
+
+        speechErrorData: [
+          { type: "Mispronunciation", count: 0 },
+          { type: "Omission", count: 0 },
+          { type: "Insertion", count: 0 },
+          { type: "Intonation", count: 0 },
+        ],
       });
+
       setShow(false);
       toast.success("Account created successfully");
     } catch (error) {
@@ -94,8 +137,8 @@ export default function SignIn() {
         {currentUser
           ? "SignOut"
           : accState === "Sign-in"
-          ? "Sign In"
-          : "Sign Up"}
+            ? "Sign In"
+            : "Sign Up"}
       </Button>
 
       <Modal
@@ -138,7 +181,6 @@ export default function SignIn() {
                 type="email"
                 placeholder="Enter email"
                 className="color-fix"
-
                 name="email"
                 required
               />
@@ -176,8 +218,8 @@ export default function SignIn() {
             {loading
               ? "Loading . . ."
               : accState === "Sign-up"
-              ? "Create Account"
-              : "Sign in"}
+                ? "Create Account"
+                : "Sign in"}
           </Button>
         </Modal.Footer>
 

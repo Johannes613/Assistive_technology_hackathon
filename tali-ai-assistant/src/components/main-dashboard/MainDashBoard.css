@@ -1,87 +1,214 @@
+/* MainDashboard.css - Dark Theme */
+
 .dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  background-color: #2b2d31;
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
 }
 
+/* Header Section */
 .dashboard-header {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
   margin-bottom: 2rem;
 }
 
-.dashboard-header h1 {
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.subscription-status {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.subscription-tag {
-  background-color: #f0f0f0;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-}
-
-.subscription-message h2 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin: 0;
-}
-
-.subscription-message p {
-  color: #666;
-  margin: 0.25rem 0 0;
-  font-size: 0.875rem;
-}
-
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.metric-card {
-  background: white;
-  border-radius: 8px;
+.header-box,
+.balance-box,
+.time-box {
+  background-color: #373a40;
   padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border-top: 3px solid #3b82f6;
+  border-radius: 1rem;
+  flex: 1;
+  min-width: 280px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
 }
 
-.metric-card h3 {
-  font-size: 0.875rem;
-  color: #666;
-  margin: 0 0 1rem 0;
-  font-weight: 500;
+.header-date {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: #cbd5e1;
 }
 
-.metric-value {
+.header-welcome {
   font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.current-plan {
+  background-color: #854fee;
+  color: #ffffff;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: #111;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  display: inline-block;
+  margin-top: 0.75rem;
+}
+
+.no-plan {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #854fee;
+  margin: 0.5rem 0;
+}
+
+.plan-desc {
+  font-size: 0.9rem;
+  color: #cbd5e1;
   margin-bottom: 1rem;
 }
 
-.metric-action {
-  background: none;
+.plan-button {
+  background: #854fee;
+  color: white;
   border: none;
-  color: #3b82f6;
-  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
   cursor: pointer;
-  padding: 0;
-  font-size: 0.875rem;
 }
 
-.metric-action:hover {
+.balance-title,
+.time-title {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.balance-amount,
+.time-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #854fee;
+}
+
+.balance-subtext,
+.time-subtext {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  margin-bottom: 0.75rem;
+}
+
+.invite-button {
+  background: #854fee;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.time-graph {
+  height: 50px;
+  position: relative;
+  background: #1f2125;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.graph-line {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: url('data:image/svg+xml;utf8,<svg width="100" height="50" xmlns="http://www.w3.org/2000/svg"><polyline points="0,50 20,50 40,10 60,50 100,50" stroke="limegreen" fill="none" stroke-width="2"/></svg>') no-repeat center;
+  background-size: cover;
+}
+
+/* Usage Section */
+.usage-section {
+  background: #373a40;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.usage-header {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  flex-wrap: wrap;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.usage-item p {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  margin-bottom: 0.25rem;
+}
+
+.usage-item h3 {
+  font-size: 1.5rem;
+  color: #854fee;
+  margin: 0;
+}
+
+.usage-item a {
+  font-size: 0.75rem;
+  color: #c084fc;
   text-decoration: underline;
+  display: inline-block;
+  margin-top: 0.25rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  border-radius: 9999px;
+  background: #1f2125;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.progress-used {
+  width: 80%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    #854fee,
+    #854fee 10px,
+    #7e22ce 10px,
+    #7e22ce 20px
+  );
+}
+
+/* Document Stats Section */
+.document-stats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.stat-box {
+  background: #1f2125;
+  border: 1px solid #3b3e44;
+  border-radius: 1rem;
+  flex: 1;
+  min-width: 150px;
+  padding: 1rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+    gap: 15px;
+}
+
+.stat-box p {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  margin-bottom: 0.25rem;
+  
+}
+
+.stat-box h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #854fee;
 }

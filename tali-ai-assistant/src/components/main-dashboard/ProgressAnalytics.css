@@ -1,0 +1,33 @@
+.progress-analytics {
+  background-color: #2b2d31;
+  padding: 2rem;
+  border-radius: 1rem;
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-top: 2rem;
+}
+
+.progress-title {
+  color: #854fee;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.charts-wrapper {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.chart-box {
+  flex: 1;
+  min-width: 300px;
+  background-color: #1e1f23;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.chart-heading {
+  margin-bottom: 1rem;
+  color: #eee;
+}

@@ -1,7 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Translator.css";
 import img from "../../images/ai-logo.png";
 import * as sdk from "microsoft-cognitiveservices-speech-sdk";
+import { auth, db } from "../../config/firebaseConfig";
+import { doc, getDoc, updateDoc, arrayUnion, increment } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Translator() {
   const [scores, setScores] = useState(null);
@@ -11,9 +14,17 @@ export default function Translator() {
   const [selectedLanguage, setSelectedLanguage] = useState("en-US");
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const key = process.env.REACT_APP_SPEECH_KEY;
   const region = process.env.REACT_APP_SPEECH_REGION;
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user || null);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const startRecording = async () => {
     if (referenceText.trim() === "") {
@@ -61,7 +72,7 @@ export default function Translator() {
       const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
       pronunciationConfig.applyTo(recognizer);
 
-      recognizer.recognizeOnceAsync((result) => {
+      recognizer.recognizeOnceAsync(async (result) => {
         if (result.reason === sdk.ResultReason.RecognizedSpeech) {
           const json = JSON.parse(result.properties.getProperty(sdk.PropertyId.SpeechServiceResponse_JsonResult));
           const assessment = json.NBest[0].PronunciationAssessment;
@@ -69,6 +80,70 @@ export default function Translator() {
 
           setScores(assessment);
           setWordDetails(words);
+
+          if (currentUser) {
+            try {
+              const userRef = doc(db, "users", currentUser.uid);
+              const userSnap = await getDoc(userRef);
+              let data = userSnap.data();
+              const currentDay = new Date().toLocaleDateString("en-US", { weekday: "short" });
+
+              // Fallback default data if pronunciationAccuracyData or fluencyData is undefined
+              let weekData = data.pronunciationAccuracyData || [
+                { day: "Mon", accuracy: 0 },
+                { day: "Tue", accuracy: 0 },
+                { day: "Wed", accuracy: 0 },
+                { day: "Thu", accuracy: 0 },
+                { day: "Fri", accuracy: 0 },
+                { day: "Sat", accuracy: 0 },
+                { day: "Sun", accuracy: 0 },
+              ];
+
+              let fluencyData = data.fluencyData || [
+                { day: "Mon", fluency: 0 },
+                { day: "Tue", fluency: 0 },
+                { day: "Wed", fluency: 0 },
+                { day: "Thu", fluency: 0 },
+                { day: "Fri", fluency: 0 },
+                { day: "Sat", fluency: 0 },
+                { day: "Sun", fluency: 0 },
+              ];
+
+              // Update pronunciation accuracy and fluency for current day
+              const updatedWeekData = weekData.map((entry) =>
+                entry.day === currentDay
+                  ? { ...entry, accuracy: assessment.AccuracyScore }
+                  : entry
+              );
+
+              const updatedFluencyData = fluencyData.map((entry) =>
+                entry.day === currentDay
+                  ? { ...entry, fluency: assessment.FluencyScore }
+                  : entry
+              );
+
+              // Update Firebase document
+              await updateDoc(userRef, {
+                pronunciationAccuracyData: updatedWeekData,
+                fluencyData: updatedFluencyData,  // Store updated fluency data
+                accuracyLogs: arrayUnion({
+                  timestamp: new Date().toISOString(),
+                  referenceText,
+                  accuracy: assessment.AccuracyScore,
+                  completeness: assessment.CompletenessScore,
+                  fluency: assessment.FluencyScore, // Store fluency score in logs
+                  pronunciationScore: assessment.PronScore,
+                }),
+                wordsPracticed: increment(words.length),
+                sentencesAnalyzed: increment(1),
+                minutesOfFeedback: increment(0.5),
+                feedbackSessions: increment(1),
+                audioUploads: increment(1),
+              });
+            } catch (err) {
+              console.error("Error storing pronunciation data:", err);
+            }
+          }
         } else {
           console.error("Speech not recognized:", result.errorDetails);
         }
