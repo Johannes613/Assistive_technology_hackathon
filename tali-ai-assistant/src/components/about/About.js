@@ -1,6 +1,6 @@
 import React from "react";
 import "./About.css";
-import about_img from "../../images/10005.png";
+import about_img from "../../images/image copy.png";
 import { CiCircleCheck } from "react-icons/ci";
 
 export default function About() {

@@ -1,55 +1,85 @@
-div.service-section{
-    background-color: #1c1f27 !important;
-    height: 80vh !important;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px -3px 30px rgba(183, 179, 179, 0.205);
+div.service-section {
+  background-color: #1c1f27 !important;
+  height: 80vh !important;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px -3px 30px rgba(183, 179, 179, 0.205);
 }
-.text-to-speech{
-    padding: 20px;
+.text-to-speech {
+  padding: 20px;
 }
-select.select-cat,input.select-cat{
-    outline-color: var(--primary-color);
-    width: 15vw;
-    font-weight: 500;
-    min-width: 150px;
-    padding: 9px;
-    padding-right: 10px;
-    border: none;
-    outline: none;
-    border-radius: 7px;
-    margin-bottom: 40px;
-    background-color: #07080a;
-    cursor: pointer;
-    color: rgb(190, 190, 190);
+select.select-cat,
+input.select-cat {
+  outline-color: var(--primary-color);
+  width: 15vw;
+  font-weight: 500;
+  min-width: 150px;
+  padding: 9px;
+  padding-right: 10px;
+  border: none;
+  outline: none;
+  border-radius: 7px;
+  margin-bottom: 40px;
+  background-color: #07080a;
+  cursor: pointer;
+  color: rgb(190, 190, 190);
 }
-p.description{
-    color:rgb(214, 213, 214);
+p.description {
+  color: rgb(214, 213, 214);
 }
-input.select-cat{
-    width: 23vw;
-    margin-right: 1vw;
-    padding: 10px 12px;
+input.select-cat {
+  width: 23vw;
+  margin-right: 1vw;
+  padding: 10px 12px;
 }
-
-.text-area{
-    background-color: #07080a;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(125, 124, 124, 0.205);
-    padding: 20px;
-    font-size: 17px;
-    color: rgb(190, 190, 190);
-    margin-bottom: 20px;
-
-
+ 
+.text-area {
+  background-color: #07080a;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(125, 124, 124, 0.205);
+  padding: 20px;
+  font-size: 17px;
+  color: rgb(190, 190, 190);
+  margin-bottom: 20px;
 }
-button.overide-me{
-    margin-bottom: 15px !important;
-    padding: 9px 30px;
-    border-radius: 20px;
-    opacity: 0.85;
-    cursor: pointer;
-    /* background-color: #343472c5; */
+button.overide-me {
+  margin-bottom: 15px !important;
+  padding: 9px 30px;
+  border-radius: 20px;
+  opacity: 0.85;
+  cursor: pointer;
+  /* background-color: #343472c5; */
+}
+ 
+.generate-text-btn button {
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 0px 15px rgba(125, 124, 124, 0.205);
+}
+button.generate-text-btn:hover {
+    background-color: #1c1f27;
+    box-shadow: 0px 0px 25px rgba(125, 124, 124, 0.205);
+}
+button.generate-text-btn:active {
+  transform: scale(0.95);
+}
+button.generate-text-btn:focus {
+  outline: none;
+}
+button.generate-text-btn:disabled {
+  background-color: #1c1f27;
+  cursor: not-allowed;
+}
+button.generate-text-btn:disabled:hover {
+  background-color: #1c1f27;
+  box-shadow: none;
 }

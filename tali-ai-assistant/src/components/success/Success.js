@@ -16,8 +16,8 @@ export default function Success() {
               className="child-first mx-3 mx-sm-0"
               style={{ background: "#E2E2fc", color: "#6b6bd4" }}
             >
-              <h1>2010+</h1>
-              <h6 style={{ color: "black" }}>Articles</h6>
+              <h1>10+</h1>
+              <h6 style={{ color: "black" }}>Trainees</h6>
             </div>
           </div>
 

@@ -6,9 +6,13 @@ import MainDashboard from "../../components/main-dashboard/MainDashboard";
 function Componentcontainer({ pathname }) {
   const componentList = {
     "/translator": <Translator />,
-    "/text-to-speech":<TextToSpeech/>,
-    "/maindashboard": <MainDashboard/>
+    "/text-to-speech": <TextToSpeech />,
+    "/maindashboard": <MainDashboard />
   };
+
+  // Default to MainDashboard if path is empty or unrecognized
+  const componentToRender = componentList[pathname] || <MainDashboard />;
+
   return (
     <Box
       sx={{
@@ -19,8 +23,9 @@ function Componentcontainer({ pathname }) {
         flexDirection: "column",
       }}
     >
-      {componentList[pathname]}
+      {componentToRender}
     </Box>
   );
 }
+
 export default Componentcontainer;

@@ -9,10 +9,20 @@ import ComponentContainer from "./ComponentContainer";
 
 function DashboardSetUp() {
   const router = useDemoRouter("/dashboard");
+
   return (
     <AppProvider navigation={sideNav} router={router} theme={customTheme}>
-      <DashboardLayout title="Tali">
-        <ComponentContainer  pathname={router.pathname} />
+      <DashboardLayout
+        title="Tali"
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: 290, // Mini sidebar width
+            overflowX: 'hidden',
+            transition: 'width 0.3s ease',
+          },
+        }}
+      >
+        <ComponentContainer pathname={router.pathname} />
       </DashboardLayout>
     </AppProvider>
   );

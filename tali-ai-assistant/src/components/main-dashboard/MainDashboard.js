@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./MainDashboard.css";
-import ProgressAnalytics from "./ProgressAnalytics"; // 👈 Import the chart component
+import ProgressAnalytics from "./ProgressAnalytics";
 import { auth, db } from "../../config/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
@@ -32,13 +32,12 @@ export default function MainDashboard() {
         const userSnap = await getDoc(userRef);
         if (userSnap.exists()) {
           const data = userSnap.data();
-          
-          // Fetch pronunciation data
+
           const accuracyData = data.pronunciationAccuracyData || [];
           const fluencyData = data.fluencyData || [];
 
           setUserData({
-            name: data.name || "Yohannis Adamu", // default if name doesn't exist
+            name: data.name || "Yohannis Adamu",
             activePlan: data.activePlan || "No Active Plan",
             assessmentCredits: data.assessmentCredits || 0,
             wordsPracticed: data.wordsPracticed || 0,
@@ -78,7 +77,7 @@ export default function MainDashboard() {
           <button className="plan-button">See Speech Plans</button>
         </div>
 
-        {/* ✅ Inserted Analytics Chart Section */}
+        {/* Analytics Chart */}
         <div className="graph-wrapper">
           <ProgressAnalytics />
         </div>
@@ -124,27 +123,32 @@ export default function MainDashboard() {
           </div>
           <div className="stat-box">
             <p>Pronunciation Analysis</p>
-            <h4>{pronunciationData.accuracyData.length > 0
-              ? `${(
-                  pronunciationData.accuracyData.reduce((acc, data) => acc + data.accuracy, 0) /
-                  pronunciationData.accuracyData.length
-                ).toFixed(2)}%`
-              : "No data available"}</h4>
+            <h4>
+              {pronunciationData.accuracyData.length > 0
+                ? `${(
+                    pronunciationData.accuracyData.reduce(
+                      (acc, data) => acc + data.accuracy,
+                      0
+                    ) / pronunciationData.accuracyData.length
+                  ).toFixed(2)}%`
+                : "No data available"}
+            </h4>
           </div>
           <div className="stat-box">
             <p>Average Fluency Score</p>
-            <h4> {pronunciationData.fluencyData.length > 0
-              ? `${(
-                  pronunciationData.fluencyData.reduce((acc, data) => acc + data.fluency, 0) /
-                  pronunciationData.fluencyData.length
-                ).toFixed(2)}%`
-              : "No data available"}</h4>
+            <h4>
+              {pronunciationData.fluencyData.length > 0
+                ? `${(
+                    pronunciationData.fluencyData.reduce(
+                      (acc, data) => acc + data.fluency,
+                      0
+                    ) / pronunciationData.fluencyData.length
+                  ).toFixed(2)}%`
+                : "No data available"}
+            </h4>
           </div>
         </div>
       </div>
-
-      
-     
     </div>
   );
 }
