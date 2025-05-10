@@ -15,7 +15,7 @@ export default function About() {
               alt="AI Speech Therapy"
             />
           </div>
-          <div className="right-section col-md-6 pt-4 text-center text-md-start">
+          <div className="col-md-6 pt-4 text-center text-md-start">
             <h1 className="about-head my-2">
               Empowering Speech Improvement with AI
             </h1>

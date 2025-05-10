@@ -33,7 +33,7 @@ export default function ProgressAnalytics() {
       <div className="charts-wrapper">
         {/* ✅ Chart 1: Pronunciation Accuracy */}
         <div className="chart-box">
-          <h4 className="chart-heading">Pronunciation Accuracy (From  7 Days)</h4>
+          <h4 className="chart-heading">Pronunciation Accuracy (Data From Last 7 Days)</h4>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={pronunciationAccuracyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
@@ -54,7 +54,7 @@ export default function ProgressAnalytics() {
 
         {/* ✅ Chart 2: Speech Fluency */}
         <div className="chart-box">
-          <h4 className="chart-heading">Speech Fluency (Data From Last 7 Days)</h4>
+          <h4 className="chart-heading">Speech Fluency Result (Data From Last 7 Days)</h4>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={fluencyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
